@@ -1,7 +1,7 @@
 package com.games.tennis.service;
 
-import com.games.tennis.rest.ApplicaticationStatus;
-import com.games.tennis.rest.HealthCheck;
+import com.games.tennis.web.ApplicaticationStatus;
+import com.games.tennis.web.HealthCheck;
 import org.springframework.stereotype.Service;
 
 @Service
