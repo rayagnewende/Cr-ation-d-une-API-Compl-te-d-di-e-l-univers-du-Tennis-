@@ -1,6 +1,7 @@
 package com.games.tennis.web;
 
 import com.games.tennis.Error;
+import com.games.tennis.service.PlayerAlreadyExist;
 import com.games.tennis.service.PlayerNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -20,6 +21,12 @@ public class PlayerControllerErrorHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Error playerNameNotExisting(PlayerNotFoundException ex){
       return new Error(ex.getMessage());
+    }
+
+    @ExceptionHandler(PlayerAlreadyExist.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Error playerNameNotExisting(PlayerAlreadyExist ex){
+        return new Error(ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

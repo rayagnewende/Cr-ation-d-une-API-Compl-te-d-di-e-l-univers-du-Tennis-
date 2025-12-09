@@ -48,38 +48,35 @@ public class PlayerService {
     }
 
     public Player create(PlayerToSave playerToSave){
-       return  getPlayerNewRanking(PlayerList.ALL, playerToSave);
+        Optional<PlayerEntity> playerEntity = playerRepository.findByLastNameIgnoreCase(playerToSave.lastName());
+        if(playerEntity.isPresent()){
+            throw new PlayerAlreadyExist(playerToSave.lastName());
+        }
+        playerRepository.save(new PlayerEntity(
+                playerToSave.lastName(),
+                playerToSave.firstName(),
+                playerToSave.birthDate(),
+                playerToSave.points(),9999999));
+
+        RankingCalculator rankingCalculator = new RankingCalculator(playerRepository.findAll());
+        List<PlayerEntity> players = rankingCalculator.getNewPlayersRanking();
+
+        playerRepository.saveAll(players);
+
+       return displayPlayerByLastName(playerToSave.lastName());
     }
 
     public Player update(PlayerToSave playerToSave){
-        displayPlayerByLastName(playerToSave.lastName());
-      List<Player> playersWithoutPlayerToSave  =   PlayerList.ALL.stream()
-                               .filter( player -> !player.lastName().equals(playerToSave.lastName()))
-                                .toList();
-      RankingCalculator rankingCalculator = new RankingCalculator(playersWithoutPlayerToSave, playerToSave);
-      List<Player> newPlayersList = rankingCalculator.getNewPlayersRanking();
-
-      return newPlayersList.stream().filter(player -> player.lastName().equals(playerToSave.lastName()))
-              .findFirst().get();
+      return null;
     }
-    private Player getPlayerNewRanking(List<Player> existingPlayers, PlayerToSave playerToSave){
-        RankingCalculator rankingCalculator = new RankingCalculator(PlayerList.ALL, playerToSave);
+    private List<PlayerEntity> getPlayerNewRanking(List<Player> existingPlayers){
+        RankingCalculator rankingCalculator = new RankingCalculator(playerRepository.findAll());
 
-        List<Player> players = rankingCalculator.getNewPlayersRanking();
-        return players.stream()
-                .filter(player -> player.lastName().equals(playerToSave.lastName()))
-                .findFirst().get();
+        return rankingCalculator.getNewPlayersRanking();
     }
 
     public void delete(String lastName) {
-        Player playerToDelete = displayPlayerByLastName(lastName);
 
-        PlayerList.ALL = PlayerList.ALL.stream()
-                .filter(player -> !player.lastName().equals(lastName))
-                .toList();
-
-        RankingCalculator rankingCalculator = new RankingCalculator(PlayerList.ALL);
-        rankingCalculator.getNewPlayersRanking();
     }
 
 }

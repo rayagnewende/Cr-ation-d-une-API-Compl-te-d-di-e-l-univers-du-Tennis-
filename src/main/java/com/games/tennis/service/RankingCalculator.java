@@ -1,5 +1,6 @@
 package com.games.tennis.service;
 
+import com.games.tennis.data.PlayerEntity;
 import com.games.tennis.web.Player;
 import com.games.tennis.web.PlayerList;
 import com.games.tennis.web.PlayerToSave;
@@ -11,46 +12,21 @@ import java.util.List;
 
 public class RankingCalculator {
 
-    private final List<Player> currentPlayersRanking;
-    private final PlayerToSave playerToSave;
+    private final List<PlayerEntity> currentPlayersRanking;
 
-    public RankingCalculator(List<Player> currentPlayersRanking, PlayerToSave playerToSave) {
+    public RankingCalculator(List<PlayerEntity> currentPlayersRanking) {
         this.currentPlayersRanking = currentPlayersRanking;
-        this.playerToSave = playerToSave;
-    }
-    public RankingCalculator(List<Player> currentPlayersRanking) {
-        this.currentPlayersRanking = currentPlayersRanking;
-        this.playerToSave = null;
     }
 
-    public List<Player> getNewPlayersRanking() {
-        List<Player> newRankingList = new ArrayList<>(currentPlayersRanking);
-        if(playerToSave != null){
-            newRankingList.add(new Player(
-                    playerToSave.firstName(),
-                    playerToSave.lastName(),
-                    playerToSave.birthDate(),
-                    new Rank(999999999, playerToSave.points())
-            ));
+    public List<PlayerEntity> getNewPlayersRanking() {
+     currentPlayersRanking.sort(
+             (player1, player2) -> Integer.compare(player1.getPoints(), player2.getPoints()));
+          List<PlayerEntity> updatedPlayers = new ArrayList<>();
+          for(int i = 0 ; i < currentPlayersRanking.size(); i++){
+              PlayerEntity player = currentPlayersRanking.get(i);
+              player.setRank(i+1);
+              updatedPlayers.add(player);
         }
-
-        List<Player> sortedPlayers = newRankingList.stream()
-                .sorted(Comparator.comparing(player -> player.rank().points()))
-                .toList();
-
-        List<Player> updatedPlayers = new ArrayList<>();
-
-        for (int i = 0; i < sortedPlayers.size(); i++) {
-            Player player = sortedPlayers.get(i);
-            Player updatedPlayer = new Player(
-                    player.firstName(),
-                    player.lastName(),
-                    player.birthDate(),
-                    new Rank(i+1, player.rank().points())
-            );
-            updatedPlayers.add(updatedPlayer);
-        }
-        PlayerList.ALL = updatedPlayers;
         return updatedPlayers;
     }
 }

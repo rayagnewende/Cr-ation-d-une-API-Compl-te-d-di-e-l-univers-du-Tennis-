@@ -54,7 +54,10 @@ public class PlayerController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "recupérer les données d'un joueeur en fonction de son nom",content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = Player.class))
-            } )
+            } ),
+            @ApiResponse(responseCode = "400", description = "Le joueur avec le nom spécifié existe déjà!",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Error.class))})
     })
 
     @PostMapping("/")
