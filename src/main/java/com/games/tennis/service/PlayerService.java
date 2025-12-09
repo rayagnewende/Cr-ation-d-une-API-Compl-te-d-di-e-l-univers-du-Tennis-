@@ -1,5 +1,6 @@
 package com.games.tennis.service;
 
+import com.games.tennis.data.PlayerEntity;
 import com.games.tennis.data.PlayerRepository;
 import com.games.tennis.web.Player;
 import com.games.tennis.web.PlayerList;
@@ -32,9 +33,18 @@ public class PlayerService {
     }
 
     public Player displayPlayerByLastName(String lastname){
-        return PlayerList.ALL.stream().filter( player -> player.lastName().equals(lastname))
-                .findFirst()
-                .orElseThrow( () -> new PlayerNotFoundException(lastname));
+        Optional<PlayerEntity> player = playerRepository.findByLastNameIgnoreCase(lastname);
+        if(player.isEmpty())
+        {
+            throw  new PlayerNotFoundException(lastname);
+        }
+
+        PlayerEntity playerEntity = player.get();
+        return new Player(
+                playerEntity.getFirstName(),
+                playerEntity.getLastName(),
+                playerEntity.getBirthDate(),
+                new Rank(playerEntity.getRank(), playerEntity.getPoints()));
     }
 
     public Player create(PlayerToSave playerToSave){
