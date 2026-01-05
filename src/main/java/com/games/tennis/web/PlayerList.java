@@ -1,5 +1,7 @@
 package com.games.tennis.web;
 
+import com.games.tennis.data.PlayerEntity;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
@@ -7,36 +9,37 @@ import java.util.List;
 
 public class PlayerList {
 
-
-    public static Player RAFAEL_NADAL = new Player(
-            "Rafael",
+    public static PlayerEntity RAFAEL_NADAL = new PlayerEntity(
             "Nadal",
+            "Rafael",
             LocalDate.of(1986, Month.JUNE, 3),
-            new Rank(1, 5000)
+            5000,
+            1
     );
 
-    public static Player NOVAK_DJOKOVIC = new Player(
-            "Novak",
+    public static PlayerEntity NOVAK_DJOKOVIC = new PlayerEntity(
             "Djokovic",
+            "Novak",
             LocalDate.of(1987, Month.MAY, 22),
-            new Rank(2, 4000)
+            4000,
+            2
     );
 
-    public static Player ROGER_FEDERER = new Player(
-            "Roger",
+    public static PlayerEntity ROGER_FEDERER = new PlayerEntity(
             "Federer",
+            "Roger",
             LocalDate.of(1981, Month.AUGUST, 8),
-            new Rank(3, 3000)
+            3000,
+            3
     );
 
-    public static Player ANDY_MURRAY = new Player(
-            "Andy",
+    public static PlayerEntity ANDY_MURRAY = new PlayerEntity(
             "Murray",
+            "Andy",
             LocalDate.of(1987, Month.MAY, 15),
-            new Rank(4, 2000)
+            2000,
+            4
     );
 
-
-
-    public static  List<Player> ALL = Arrays.asList(RAFAEL_NADAL, NOVAK_DJOKOVIC, ROGER_FEDERER, ANDY_MURRAY);
+    public static List<PlayerEntity> ALL = Arrays.asList(ROGER_FEDERER, ANDY_MURRAY, NOVAK_DJOKOVIC, RAFAEL_NADAL);
 }

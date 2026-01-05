@@ -86,12 +86,14 @@ public class PlayerController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Supprimer un joueur de Teniis",content = {
                     @Content(mediaType = "application/json", schema = @Schema(implementation = Player.class))
-            } )
+            } ),
+            @ApiResponse(responseCode = "404", description = "Le joueur  n'existe pas!",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Error.class))})
     })
-
     @DeleteMapping("/{lastname}")
     public void  deletePlayer(@PathVariable("lastname") String lastname ){
-         playerService.delete(lastname);
+       playerService.delete(lastname);
     }
 
 

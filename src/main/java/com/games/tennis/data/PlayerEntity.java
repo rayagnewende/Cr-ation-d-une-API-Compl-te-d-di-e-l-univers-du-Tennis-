@@ -39,6 +39,12 @@ public class PlayerEntity {
         this.rank = rank;
     }
 
+    public PlayerEntity(String lastname) {
+    }
+
+    public PlayerEntity(String nadal, String rafael, String date, int points, int rank) {
+    }
+
     public String getLastName() {
         return lastName;
     }
