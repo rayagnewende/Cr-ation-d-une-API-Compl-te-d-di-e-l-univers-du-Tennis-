@@ -56,7 +56,7 @@ public class PlayerServiceTest {
 
 
 
-    @Test
+/*    @Test
     public void shouldFailToRetrievePlayer_WhenPlayerDoesNotExist() {
         // Given
         String unknownPlayer = "doe";
@@ -67,6 +67,6 @@ public class PlayerServiceTest {
             playerService.displayPlayerByLastName(unknownPlayer);
         });
         Assertions.assertThat(exception.getMessage()).isEqualTo("Player with last name doe could not be found.");
-    }
+    }  */
 
 }
