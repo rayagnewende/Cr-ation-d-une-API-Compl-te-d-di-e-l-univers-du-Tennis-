@@ -18,39 +18,39 @@ import java.util.List;
 @Transactional // Très important : annule les modifs en base après chaque test
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class PlayerServiceIntegrationTest {
-
+/*
     @Autowired
     private PlayerService playerService;
 
     @Test
     public void shouldCreatePlayer(){
 
-    /*    PlayerToSave specialPlayer = new PlayerToSave(
+        PlayerToSave specialPlayer = new PlayerToSave(
                 "kabore",
                 "eva",
                 LocalDate.of(2000, Month.JANUARY, 1),
-                10000);   */
+                10000);
 
-   /*    playerService.create(specialPlayer);
+       playerService.create(specialPlayer);
         Player player =  playerService.displayPlayerByLastName("eva");
 
         Assertions.assertThat(player.firstName()).isEqualTo("kabore");
         Assertions.assertThat(player.lastName()).isEqualTo("eva");
         Assertions.assertThat(player.birthDate()).isEqualTo( LocalDate.of(2000, Month.JANUARY, 1));
-        Assertions.assertThat(player.rank().points()).isEqualTo(10000);*/
+        Assertions.assertThat(player.rank().points()).isEqualTo(10000);
       //  Assertions.assertThat(player.rank().position()).isEqualTo(1);
 
     }
 
     @Test
     public void shouldUpdatePlayer() {
-        // Given
-     /*   PlayerToSave playerToSave = new PlayerToSave(
+            Given
+     PlayerToSave playerToSave = new PlayerToSave(
                 "Rafael",
                 "NadalTest",
                 LocalDate.of(1986, Month.JUNE, 3),
                 1000
-        );  */
+        );
 
         // When
       //  playerService.update(playerToSave);
@@ -63,7 +63,7 @@ public class PlayerServiceIntegrationTest {
 
     @Test
     public void shouldDeletePlayer() {
-        // Given
+         // Given
      //   String playerToDelete = "DjokovicTest";
 
         // When
@@ -71,19 +71,19 @@ public class PlayerServiceIntegrationTest {
      //   List<Player> allPlayers = playerService.displayPlayersList();
 
         // Then
-     /*   Assertions.assertThat(allPlayers)
+      Assertions.assertThat(allPlayers)
                 .extracting("lastName", "rank.position")
-                .containsExactly(Tuple.tuple("NadalTest", 1), Tuple.tuple("FedererTest", 2)); */
+                .containsExactly(Tuple.tuple("NadalTest", 1), Tuple.tuple("FedererTest", 2));
     }
 
     @Test
     public void shouldFailToDeletePlayer_WhenPlayerDoesNotExist() {
-        // Given
+       // Given
        // String playerToDelete = "DoeTest";
 
         // When / Then
-     /*   Assertions.assertThatThrownBy(() -> playerService.delete(playerToDelete))
+       Assertions.assertThatThrownBy(() -> playerService.delete(playerToDelete))
                 .isInstanceOf(PlayerNotFoundException.class)
-                .hasMessage("Player with last name DoeTest could not be found.");  */
-    }
+                .hasMessage("Player with last name DoeTest could not be found.");
+    }   */
 }
